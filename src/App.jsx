@@ -42,7 +42,11 @@ function App() {
 
 const completeTodo = (index) => {
   const newTodos = [...todos];
-  newTodos[index].isCompleted = true;
+  if (newTodos[index].isCompleted == false) {
+    newTodos[index].isCompleted = true;
+} else {
+  newTodos[index].isCompleted = false;
+}
   setTodos(newTodos);
 };
 
@@ -63,13 +67,31 @@ const removeTodo = (index) => {
 };
 
 
+const moveUp = (index) => {
+  const newTodos = [...todos];
+  if (index > 0) {       
+      // https://stackoverflow.com/a/872317
+      [newTodos[index], newTodos[index-1]] = [
+          newTodos[index-1], newTodos[index]];
+      setTodos(newTodos);
+  }
+};
+
+const moveDown = (index) => {
+  const newTodos = [...todos];
+  if (index < newTodos.length -1) {       
+      // https://stackoverflow.com/a/872317
+      [newTodos[index], newTodos[index+1]] = [
+        newTodos[index+1], newTodos[index]];
+      setTodos(newTodos);
+  }
+}
+
   return (
     /// HOMEWORK - STEP 7
     <div className="app">
       <div className="todo-list">
-      {/* --- */}
         <h1>ToDo List</h1>
-        {/* below is not working because this isn't a string, it's an object */}
         {todos.map((todo, index) => (
           <ToDoItem
           key={index}
@@ -77,6 +99,8 @@ const removeTodo = (index) => {
           index={index}
           completeTodo={completeTodo}
           removeTodo={removeTodo}
+          moveUp={moveUp}
+          moveDown={moveDown}
           />
         ))}
         <ToDoForm addTodo={addTodo} />
