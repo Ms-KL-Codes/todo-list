@@ -24,7 +24,7 @@ function ToDoForm(props) {
         <form onSubmit={handleSubmit}>
             <input 
             type="text" 
-            placeholder="add todo here..." 
+            placeholder="Add an item to the list..." 
             value={todo}
             // value of input = todo state
             onChange={(event) => setTodo(event.target.value)} 

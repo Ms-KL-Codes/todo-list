@@ -19,17 +19,7 @@ function App() {
     // const [array, setarray]
   const [todos, setTodos] = useState([
     { 
-    text: "Learn about React",
-    isComplete: false,
-    isImportant: false,
-    },
-    {
-    text: "Meet friend for lunch",
-    isComplete: false,
-    isImportant: false,
-    },
-    {
-    text: "Build really cool todo app",
+    text: "Create a todo item!",
     isComplete: false,
     isImportant: false,
     },
@@ -79,7 +69,7 @@ function App() {
 
   const removeTodo = (index) => {
     const newTodos = [...todos];
-    if (confirm("are you sure you want to delete this item?")) {
+    if (confirm("Are you sure you want to delete this item?")) {
       newTodos.splice(index, 1);
       setTodos(newTodos);
     } else {
