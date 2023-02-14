@@ -24,7 +24,6 @@ function ToDoItem(props) {
                 </button>
             <button className="item-button" onClick={() => moveUp(index)}>↑</button>
             <button className="item-button" onClick={() => moveDown(index)}>↓</button>
-
             <button className="item-button" onClick={()=> removeTodo(index)}>&#10008;</button>
         </div>
         </div>

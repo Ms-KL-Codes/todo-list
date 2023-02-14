@@ -50,6 +50,11 @@ function App() {
   const completeTodo = (index) => {
     const newTodos = [...todos];
     newTodos[index].isComplete =!newTodos[index].isComplete;
+    if (newTodos[index].isComplete) {
+      const completeItem = newTodos[index]
+      newTodos.splice(index, 1)
+      newTodos.push(completeItem)
+    }
     setTodos(newTodos);
   };
     /*
@@ -162,7 +167,7 @@ function App() {
     /// HOMEWORK - STEP 7
     <div className="app">
       <div className="todo-list">
-        <h1>ToDo List</h1>
+        <h1>To Do List</h1>
         {todos.map((todo, index) => (
           <ToDoItem
           key={index}
