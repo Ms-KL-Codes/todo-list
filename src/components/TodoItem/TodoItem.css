@@ -1,5 +1,5 @@
 .todo {
-    background: #fff;
+    background:white;
     padding: 10px;
     font-size: 12px;
     margin-bottom: 6px;
@@ -29,7 +29,7 @@
     
 .complete .todo-text {
     text-decoration: line-through;
-    color: gray;
+    color: #66CCFF;
 }
 
 .important .todo-text {
@@ -40,7 +40,6 @@
     background-color: red ;
     color: white;
 }
-
 
 @media (max-width: 440px) {
 
