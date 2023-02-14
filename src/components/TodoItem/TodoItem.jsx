@@ -12,14 +12,14 @@ function ToDoItem(props) {
     return (
         <div className={`todo ${todo.isComplete ? "complete": ""}`}>
         {/* if the todo = complete, class name is complete, otherwise there is no classname */}
-        {todo.text}
-        <div>
-        <button onClick={() => completeTodo(index)}>
-            {todo.isComplete ? "Undo" : "Complete"}
-            </button>
-        <button onClick={() => removeTodo(index)}>x</button>
-        <button onClick={() => moveUp(index)}>↑</button>
-        <button onClick={() => moveDown(index)}>↓</button>
+        <div className="todo-text">{todo.text}</div>
+        <div className="button-block">
+            <button className="item-button" onClick={() => completeTodo(index)}>
+                {todo.isComplete ? "\u21A9" : "\u2714"}
+                </button>
+            <button className="item-button" onClick={() => removeTodo(index)}>&#10008;</button>
+            <button className="item-button" onClick={() => moveUp(index)}>↑</button>
+            <button className="item-button" onClick={() => moveDown(index)}>↓</button>
         </div>
         </div>
     );

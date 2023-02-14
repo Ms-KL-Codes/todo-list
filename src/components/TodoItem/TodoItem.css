@@ -8,6 +8,19 @@
     justify-content: space-between;
 }
 
-.complete {
+.complete .todo-text {
     text-decoration: line-through;
+    color: gray;
 }
+
+.button-block {
+    display: flex;
+}
+
+.item-button {
+    margin-left:10px;
+    width: 30px;
+}
+
+/* https://stackoverflow.com/questions/31198170/want-to-add-spacing-between-buttons */
+
