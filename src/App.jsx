@@ -21,20 +21,23 @@ function App() {
     { 
     text: "Learn about React",
     isComplete: false,
+    isImportant: false,
     },
     {
     text: "Meet friend for lunch",
     isComplete: false,
+    isImportant: false,
     },
     {
     text: "Build really cool todo app",
     isComplete: false,
+    isImportant: false,
     },
   ]);
 
   // ACTIONS
   const addTodo = (text) => {
-    const newTodos = [...todos, { text: text, isComplete: false }];
+    const newTodos = [...todos, { text: text, isComplete: false, isImportant: false, }];
     setTodos(newTodos);
   };
     /*
@@ -76,8 +79,13 @@ function App() {
 
   const removeTodo = (index) => {
     const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+    if (confirm("are you sure you want to delete this item?")) {
+      newTodos.splice(index, 1);
+      setTodos(newTodos);
+    } else {
+
+    };
+
   };
     /*
       HELP NOTES:
@@ -87,6 +95,9 @@ function App() {
       const newTodos = [...todos];
           - creates new array newTodos
           - [...todos] copies and spreads this todos elements into the elements of the newTodos array
+      if (confirm("are you sure you want to delete this item?")) {
+          -https://stackoverflow.com/questions/9334636/how-to-create-a-dialog-with-ok-and-cancel-options
+          - checks to see if the user wants to do this with ok or cancel
       newTodos.splice(index, 1);
           - splice removes elements starting at the index point
           - 1 states how many elements (1) should be removed from the array from the index starting point
@@ -146,6 +157,17 @@ function App() {
         - override current state with new array
   */
 
+  const important = (index) => {
+    const newTodos = [...todos];
+    newTodos[index].isImportant =!newTodos[index].isImportant;
+    if (newTodos[index].isImportant) {
+      const importantItem = newTodos[index]
+      newTodos.splice(index, 1)
+      newTodos.unshift(importantItem)
+    }
+    setTodos(newTodos);
+  };
+
   return (
     /// HOMEWORK - STEP 7
     <div className="app">
@@ -160,6 +182,7 @@ function App() {
           removeTodo={removeTodo}
           moveUp={moveUp}
           moveDown={moveDown}
+          important={important}
           />
         ))}
         <ToDoForm addTodo={addTodo} />

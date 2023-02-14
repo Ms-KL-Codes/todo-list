@@ -5,22 +5,63 @@
     margin-bottom: 6px;
     display: flex;
     align-items: center;
+    width: calc(100% - 20px);
     justify-content: space-between;
-}
-
-.complete .todo-text {
-    text-decoration: line-through;
-    color: gray;
 }
 
 .button-block {
     display: flex;
+    justify-content: flex-end;
 }
 
 .item-button {
     margin-left:10px;
     width: 30px;
+    flex-basis: 50%;
 }
+
+.item-button#complete:hover {
+    background-color: green ;
+    color: white;
+}
+    
+.complete .todo-text {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.important .todo-text {
+    color: red;
+}
+
+.item-button#important:hover, .important-button {
+    background-color: red ;
+    color: white;
+}
+
+
+@media (max-width: 440px) {
+
+    .button-block {
+        flex-wrap: wrap;
+        /* wraps item buttons into new line */
+        justify-content: space-around;
+        /* buttons evenly distributed */
+    }
+
+    .item-button {
+        flex-basis: calc(40% - 10px);
+        /* each column is 40% of the screen w/ a 10px margin */
+        margin-bottom: 5px;
+        /* adds space between buttons */
+    }
+} 
+
+/* 
+    Should I be styling directly in jsx?
+    https://reactjs.org/docs/dom-elements.html
+    https://reactjs.org/docs/faq-styling.html 
+*/
 
 /* https://stackoverflow.com/questions/31198170/want-to-add-spacing-between-buttons */
 
