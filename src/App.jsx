@@ -68,6 +68,16 @@ function App() {
       newTodos[index].isComplete =!newTodos[index].isComplete;
           - ! acts as a toggle to switch between true and false depending on current state.
           - if isComplete is currently true, change to false and vice versa
+      if (newTodos[index].isComplete) {
+          - if the element is complete, do the following
+      const completeItem = newTodos[index]
+          - create new variable called completeItem and set as current item
+      newTodos.splice(index, 1)
+          - splice = remove specified item(s)
+          - index = starting point to remove item(s)
+          - 1 = number of items to remove 
+      newTodos.push(completeItem)
+          - push the completeItem at the end of the newTodos array
       setTodos(newTodos);
           - override current state with new array
     */
