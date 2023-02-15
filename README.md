@@ -1,3 +1,5 @@
+<img src="src/assets/shecodes-icon.png" width="80px" height="80px" />
+
 # She Codes Plus Mini Project: To Do List
 
 ## About:
