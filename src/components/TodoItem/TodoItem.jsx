@@ -22,8 +22,9 @@ function ToDoItem(props) {
             <button className="item-button" id="complete" onClick={() => completeTodo(index)}>
                 {todo.isComplete ? "\u21A9" : "\u2714"}
                 </button>
-            <button className="item-button" onClick={() => moveUp(index)}>↑</button>
-            <button className="item-button" onClick={() => moveDown(index)}>↓</button>
+            <button className="item-button" disabled={todo.isImportant || todo.isComplete} onClick={() => moveUp(index)}>↑</button>
+            <button className="item-button" disabled={todo.isImportant || todo.isComplete} onClick={() => moveDown(index)}>↓</button>
+            {/* || = if either = true  */}
             <button className="item-button" onClick={()=> removeTodo(index)}>&#10008;</button>
         </div>
         </div>

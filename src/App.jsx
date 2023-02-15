@@ -32,11 +32,34 @@ function App() {
     newTodos.sort((a, b) => a.rank - b.rank);
     setTodos(newTodos);
   };
+    /*
+      KG NOTES:
+      const sortTodos = () => {
+          - const sortTodos declares the variable
+          - = () => defines the function using ARROW FUNCTION (convention)
+          - no parameters set in () for the function
+      const newTodos = [...todos];
+          - const newTodos creates a new array
+          - [...todos] spreads the elements of todos and inserts them into the same indexes of newTodos
+      newTodos.sort((a, b) => a.rank - b.rank)
+          - https://bobbyhadz.com/blog/react-sort-array-of-objects
+          - newTodos. looks @ the elements of newTodos
+          - .sort( commences the sort method using a comparison between to values/arguments
+          - (a,b) sets the arguments to be compared
+          - the sort compares these two: a.rank and b.rank 
+            - (eg: a.rank = 3 and b.rank = 1)
+          - a.rank - b.rank: (a3 - b1 = result2)
+            - if the result is negative, a is placed before b (n/a)
+            - if the result is 0, nothing changes (n/a)
+            - if the result is positive, b is placed before a ( result2 = order: b(1) then a(3) )
+            ** to reverse order, change code to: 
+              - b.rank - a.rank
+    */
 
   const addTodo = (text) => {
-    const newTodos = [...todos, { text: text, isComplete: false, isImportant: false, rank: 2, }];
-    console.log(newTodos)
+    const newTodos = [...todos, { text: text, isComplete: false, isImportant: false, rank: 2 }];
     setTodos(newTodos);
+    // sortTodos();
   };
     /*
       KG NOTES:
@@ -46,11 +69,11 @@ function App() {
           - => shorthand way of writing an anon function
           - use => with const instead of: function addTodo 
           - (text) = parameter/argument of function =>
-      const newTodos = [...todos, { text: text, isComplete: false }];
+      const newTodos = [...todos, { text: text, isComplete: false, rank: 2, }];
           - const newTodos creates a new list to work with
           - [...todos] takes the elms of todos, copies them and spreads into the new array newTodos
-            - Note: {...todos} - object [...todos] - array
-          - { text: text, isComplete: false } adds the new item to the end of the newTodos array
+            - Note: {...todos} = object AND [...todos] = array
+          - { text: text, isComplete: false, rank: 2 } sets the default properties of the new item and adds the new item to the end of the newTodos array
       setTodos(newTodos);
           - override current state with new array
     */
@@ -58,18 +81,15 @@ function App() {
   const completeTodo = (index) => {
     const newTodos = [...todos];
     newTodos[index].isComplete =!newTodos[index].isComplete;
-    if (newTodos[index].isComplete) {
-      const completeItem = newTodos[index]
-      // newTodos.splice(index, 1)
-      // newTodos.push(completeItem)
-      newTodos[index].rank = 3;
-    } else if (!newTodos[index].isComplete && newTodos[index].isImportant) {
+    if (!newTodos[index].isComplete && newTodos[index].isImportant) {
       newTodos[index].rank = 1;
-    } else if (!newTodos[index].isComplete) {
+    } else if (!newTodos[index].isComplete && !newTodos[index].isImportant) {
       newTodos[index].rank = 2;
     } else if (newTodos[index].isComplete && newTodos[index].isImportant) {
       newTodos[index].rank = 3;
-    }
+    } else if (newTodos[index].isComplete && !newTodos[index].isImportant ) {
+      newTodos[index].rank = 3; 
+    };
     setTodos(newTodos);
     sortTodos();
   };
@@ -84,8 +104,18 @@ function App() {
       newTodos[index].isComplete =!newTodos[index].isComplete;
           - ! acts as a toggle to switch between true and false depending on current state.
           - if isComplete is currently true, change to false and vice versa
-      if (newTodos[index].isComplete) {
-          - if the element is complete, do the following
+      if (!newTodos[index].isComplete && newTodos[index].isImportant) {newTodos[index].rank = 1;
+          - if isComplete = false and isImportant = True, rank = 1
+      } else if (!newTodos[index].isComplete && !newTodos[index].isImportant) {newTodos[index].rank = 2;
+          - if isComplete = false and isImportant = false, rank = 2
+      } else if (newTodos[index].isComplete) {newTodos[index].rank = 3;
+          - if isComplete = true, rank = 3
+      setTodos(newTodos);
+          - override current state with new array
+      sortTodos();
+          - run the sort function once the state of Todos have been updated
+      
+      Removed:
       const completeItem = newTodos[index]
           - create new variable called completeItem and set as current item
       newTodos.splice(index, 1)
@@ -94,8 +124,6 @@ function App() {
           - 1 = number of items to remove 
       newTodos.push(completeItem)
           - push the completeItem at the end of the newTodos array
-      setTodos(newTodos);
-          - override current state with new array
     */
 
   const removeTodo = (index) => {
@@ -109,7 +137,7 @@ function App() {
 
   };
     /*
-      HELP NOTES:
+      KG NOTES:
       const removeTodo = (index) => {
           - declares removeTodo as a variable
           - sets index as an argument for a function using =>
@@ -129,12 +157,13 @@ function App() {
 
   const moveUp = (index) => {
     const newTodos = [...todos];
-    if (index > 0) {       
+    if (!newTodos[index-1].isImportant && index > 0) {       
         [newTodos[index], newTodos[index-1]] = [
             newTodos[index-1], newTodos[index]];
         setTodos(newTodos);
-        sortTodos();
-    }
+    } else {
+      alert("Sorry, you cannot move this item up as it is not 'Important'")
+    };
   };
     /*
       KG NOTES:
@@ -156,14 +185,15 @@ function App() {
 
   const moveDown = (index) => {
     const newTodos = [...todos];
-    if (index < newTodos.length -1) {       
+    if (!newTodos[index+1].isComplete && index < newTodos.length -1) {      
         // https://stackoverflow.com/a/872317
         [newTodos[index], newTodos[index+1]] = [
           newTodos[index+1], newTodos[index]];
-        setTodos(newTodos);
-        sortTodos();
-    }
-  }
+        setTodos(newTodos);  
+    } else {
+      alert("Sorry, you cannot move this item down as it is not 'Complete' ")
+    };
+  };
   /*
     KG NOTES:
     const moveDown = (index) => {
@@ -183,21 +213,29 @@ function App() {
   const important = (index) => {
     const newTodos = [...todos];
     newTodos[index].isImportant =!newTodos[index].isImportant;
-    // if (newTodos[index].isImportant) {
-    //   const importantItem = newTodos[index]
-    //   // newTodos.splice(index, 1)
-    //   // newTodos.unshift(importantItem)
-    //   newTodos[index].rank = 1;
     if (newTodos[index].isImportant && !newTodos[index].isComplete) {
       newTodos[index].rank = 1;
+    } else if (!newTodos[index].isImportant) {
+      newTodos[index].rank = 2;
     } else if (newTodos[index].isImportant && newTodos[index].isComplete) {
       newTodos[index].rank = 3;
-    } else if (!newTodos[index].isImportant && !newTodos[index].isComplete) {
-      newTodos[index].rank = 2;
     };
     setTodos(newTodos);
     sortTodos();
   };
+
+    /*
+    KG NOTES:
+
+    REMOVED:
+    if (newTodos[index].isImportant) {
+
+    const importantItem = newTodos[index]
+      newTodos.splice(index, 1)
+      newTodos.unshift(importantItem)
+      newTodos[index].rank = 1;
+
+    */
 
   return (
     /// HOMEWORK - STEP 7
