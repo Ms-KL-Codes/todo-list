@@ -22,12 +22,20 @@ function App() {
     text: "Create a todo item!",
     isComplete: false,
     isImportant: false,
+    rank: 2,
     },
   ]);
 
   // ACTIONS
+  const sortTodos = () => {
+    const newTodos = [...todos];
+    newTodos.sort((a, b) => a.rank - b.rank);
+    setTodos(newTodos);
+  };
+
   const addTodo = (text) => {
-    const newTodos = [...todos, { text: text, isComplete: false, isImportant: false, }];
+    const newTodos = [...todos, { text: text, isComplete: false, isImportant: false, rank: 2, }];
+    console.log(newTodos)
     setTodos(newTodos);
   };
     /*
@@ -52,10 +60,18 @@ function App() {
     newTodos[index].isComplete =!newTodos[index].isComplete;
     if (newTodos[index].isComplete) {
       const completeItem = newTodos[index]
-      newTodos.splice(index, 1)
-      newTodos.push(completeItem)
+      // newTodos.splice(index, 1)
+      // newTodos.push(completeItem)
+      newTodos[index].rank = 3;
+    } else if (!newTodos[index].isComplete && newTodos[index].isImportant) {
+      newTodos[index].rank = 1;
+    } else if (!newTodos[index].isComplete) {
+      newTodos[index].rank = 2;
+    } else if (newTodos[index].isComplete && newTodos[index].isImportant) {
+      newTodos[index].rank = 3;
     }
     setTodos(newTodos);
+    sortTodos();
   };
     /*
       KG NOTES:
@@ -117,6 +133,7 @@ function App() {
         [newTodos[index], newTodos[index-1]] = [
             newTodos[index-1], newTodos[index]];
         setTodos(newTodos);
+        sortTodos();
     }
   };
     /*
@@ -144,6 +161,7 @@ function App() {
         [newTodos[index], newTodos[index+1]] = [
           newTodos[index+1], newTodos[index]];
         setTodos(newTodos);
+        sortTodos();
     }
   }
   /*
@@ -165,12 +183,20 @@ function App() {
   const important = (index) => {
     const newTodos = [...todos];
     newTodos[index].isImportant =!newTodos[index].isImportant;
-    if (newTodos[index].isImportant) {
-      const importantItem = newTodos[index]
-      newTodos.splice(index, 1)
-      newTodos.unshift(importantItem)
-    }
+    // if (newTodos[index].isImportant) {
+    //   const importantItem = newTodos[index]
+    //   // newTodos.splice(index, 1)
+    //   // newTodos.unshift(importantItem)
+    //   newTodos[index].rank = 1;
+    if (newTodos[index].isImportant && !newTodos[index].isComplete) {
+      newTodos[index].rank = 1;
+    } else if (newTodos[index].isImportant && newTodos[index].isComplete) {
+      newTodos[index].rank = 3;
+    } else if (!newTodos[index].isImportant && !newTodos[index].isComplete) {
+      newTodos[index].rank = 2;
+    };
     setTodos(newTodos);
+    sortTodos();
   };
 
   return (
