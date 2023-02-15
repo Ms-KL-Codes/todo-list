@@ -27,17 +27,17 @@ function App() {
   ]);
 
   // ACTIONS
-  const sortTodos = () => {
-    const newTodos = [...todos];
+  const sortTodos = (sortableToDos) => {
+    const newTodos = [...sortableToDos];
     newTodos.sort((a, b) => a.rank - b.rank);
     setTodos(newTodos);
   };
     /*
       KG NOTES:
-      const sortTodos = () => {
+      const sortTodos = (sortableToDos) => {
           - const sortTodos declares the variable
-          - = () => defines the function using ARROW FUNCTION (convention)
-          - no parameters set in () for the function
+          - = (sortableToDos) => defines the function using ARROW FUNCTION (convention)
+          - sortableToDos will be passed in for sorting in each function
       const newTodos = [...todos];
           - const newTodos creates a new array
           - [...todos] spreads the elements of todos and inserts them into the same indexes of newTodos
@@ -58,8 +58,9 @@ function App() {
 
   const addTodo = (text) => {
     const newTodos = [...todos, { text: text, isComplete: false, isImportant: false, rank: 2 }];
-    setTodos(newTodos);
-    // sortTodos();
+    // setTodos(newTodos);
+    const sortableToDos = newTodos;
+    sortTodos(sortableToDos);
   };
     /*
       KG NOTES:
@@ -90,8 +91,10 @@ function App() {
     } else if (newTodos[index].isComplete && !newTodos[index].isImportant ) {
       newTodos[index].rank = 3; 
     };
-    setTodos(newTodos);
-    sortTodos();
+    // setTodos(newTodos);
+    const sortableToDos = newTodos;
+    sortTodos(sortableToDos);
+    // sortTodos();
   };
     /*
       KG NOTES:
@@ -220,8 +223,8 @@ function App() {
     } else if (newTodos[index].isImportant && newTodos[index].isComplete) {
       newTodos[index].rank = 3;
     };
-    setTodos(newTodos);
-    sortTodos();
+    const sortableToDos = newTodos;
+    sortTodos(sortableToDos);
   };
 
     /*
