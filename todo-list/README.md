@@ -3,13 +3,22 @@
 # She Codes Plus Mini Project: To Do List
 
 ## About:
+
 This To Do List was created by Kristy Leigh as a mini project for the [She Codes Plus](https://www.shecodes.com.au/) program.<br>
 
-### Tech & Skills Learned: 
-* Javascript
-* ReactJS
-* HTML
-* CSS
-* VS Code
-* Github Desktop
-* Vite
+### Tech & Skills Learned:
+
+- Javascript
+- ReactJS
+- HTML
+- CSS
+- VS Code
+- Github Desktop
+- Vite
+
+### How to run:
+
+```shell
+cd todo-list
+npm run dev
+```
